@@ -1,0 +1,12 @@
+{
+  "name": "drivelah",
+  "displayName": "drivelah",
+  "expo": {
+    "name": "drivelah",
+    "slug": "drivelah",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
