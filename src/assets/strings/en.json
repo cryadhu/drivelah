@@ -1,0 +1,14 @@
+{
+  "dateSelect": {
+    "title": "Date and Time selector",
+    "pickup": "Pickup",
+    "dropOff": "Drop off"
+  },
+  "calendarView": {
+    "title": "Select your trip dates"
+  },
+  "picker": {
+    "pickupDate": "Pickup Date",
+    "dropOffDate": "Drop-off Date"
+  }
+}

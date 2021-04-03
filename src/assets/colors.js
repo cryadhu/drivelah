@@ -1,0 +1,8 @@
+export const windowBackground = '#FCFCFC'
+export const textColor = '#026786'
+export const secondaryTextColor = '#B2B2B2'
+export const white = '#ffffff'
+export const borderColor = '#E6E6E6'
+export const bgColor = '#F6F6F6'
+export const bluishGreen = '#00A3AD'
+export const yellow = '#FECD2A'
