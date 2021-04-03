@@ -19,12 +19,18 @@ const TABS = {
 const finalWidth = width / 2 - 5;
 
 export default function DateTimeSelector(props) {
-  const { pickup, dropOff } = props;
+  const { pickup, dropOff, currentTab } = props;
   const [selectedPickup, setSelectedPickup] = useState(pickup);
   const [selectedDropOff, setSelectedDropOff] = useState(dropOff);
-  const [selectedTab, setSelectedTab] = useState(TABS.PICKUP);
+  const [selectedTab, setSelectedTab] = useState(currentTab);
 
   const leftDivider = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if(currentTab === TABS.DROP_OFF){
+      animateDivider(finalWidth)
+    }
+  }, [currentTab])
 
   const animateDivider = (to) => {
     Animated.timing(leftDivider, {

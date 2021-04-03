@@ -8,6 +8,11 @@ import { formatDateTime } from "../../utils/dateUtils";
 
 import styles from "./styles";
 
+const TABS = {
+  PICKUP: 0,
+  DROP_OFF: 1,
+};
+
 export default function DateSelection(props) {
   const { navigation } = props;
   const pickup = useSelector((state) => state.picker.pickup);
@@ -26,13 +31,13 @@ export default function DateSelection(props) {
         title={string("dateSelect.pickup")}
         message={formatDateTime(pickup)}
         style={styles.pickup}
-        onPress={() => navigate("pickup")}
+        onPress={() => navigate(TABS.PICKUP)}
       />
       <DateSelectorItem
         title={string("dateSelect.dropOff")}
         message={formatDateTime(dropOff)}
         style={styles.dropOff}
-        onPress={() => navigate("dropOff")}
+        onPress={() => navigate(TABS.DROP_OFF)}
       />
     </View>
   );
