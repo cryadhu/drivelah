@@ -5,4 +5,8 @@ export default configureStore({
   reducer: {
     picker: pickerReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

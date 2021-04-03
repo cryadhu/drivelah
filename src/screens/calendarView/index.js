@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { View, Image, Text } from "react-native";
-import { useSelector } from "react-redux";
+import React from "react";
+import { View } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+
+import {setPickup, setDropOff} from '../../redux/feature/picker/pickerSlicer'
 
 import { string } from "../../assets/strings";
 import DateTimeSelector from "../../components/dateTimeSelector";
@@ -14,6 +16,12 @@ export default function DateSelection(props) {
 
   const pickup = useSelector((state) => state.picker.pickup);
   const dropOff = useSelector((state) => state.picker.dropOff);
+  const dispatch = useDispatch()
+
+  const onSave = (pickupDate, dropOffDate) => {
+    dispatch(setPickup(pickupDate))
+    dispatch(setDropOff(dropOffDate))
+  };
 
   return (
     <View style={styles.container}>
@@ -22,6 +30,8 @@ export default function DateSelection(props) {
         pickup={pickup}
         dropOff={dropOff}
         currentTab={params.key}
+        onSave={onSave}
+        goBack={navigation.goBack}
       />
     </View>
   );

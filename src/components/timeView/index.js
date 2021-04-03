@@ -3,7 +3,7 @@ import { View, Image, Text } from "react-native";
 import moment from "moment";
 import Ruler from "../ruler";
 
-import { textColor } from "../../assets/colors";
+import { textColor, windowBackground } from "../../assets/colors";
 import { string } from "../../assets/strings";
 import styles from "./styles";
 
@@ -12,11 +12,6 @@ export default function TimeView(props) {
   const [selectedTime, setSelectedTime] = useState(moment().format("h:mm A"));
   const [selectedTimeValue, setSelectedTimeValue] = useState(0);
   const ruler = useRef(null);
-
-  useEffect(() => {
-    const val = moveSlideOnTimeChange(moment());
-    onTimeChanged(timeBasedOnVal(val));
-  }, []);
 
   useEffect(() => {
     if (currentDate && selectedTime !== moment(currentDate).format("hh:mm A")) {
@@ -55,7 +50,7 @@ export default function TimeView(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.date}>{currentDate.format("Do MMM")}</Text>
+      <Text style={styles.date}>{currentDate && currentDate?.format("Do MMM")}</Text>
       <View style={styles.center}>
         <View style={styles.timeContainer}>
           <Text style={styles.time}>{selectedTime}</Text>
@@ -65,11 +60,12 @@ export default function TimeView(props) {
       </View>
       <Ruler
         style={{ marginTop: -5 }}
+        backgroundColor={windowBackground}
         height={40}
         vertical={false}
         onChangeValue={onChangeValue}
         minimum={0}
-        maximum={46}
+        maximum={47}
         segmentWidth={1}
         segmentSpacing={35}
         step={2}
@@ -79,6 +75,7 @@ export default function TimeView(props) {
         normalHeight={12}
         ref={ruler}
       />
+      <Text style={styles.slideToSelect}>{string("picker.slideToSelect")}</Text>
     </View>
   );
 }

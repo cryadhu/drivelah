@@ -7,9 +7,9 @@ const getCurrentTime = () => {
   if (minute < 15) {
     time.set({ m: 0 });
   } else if (minute >= 15 && minute < 45) {
-    time.set({ m: 0, h: time.hours + 0.5});
+    time.set({ m: 30, h: time.hours() });
   } else {
-    time.set({ m: 0, h: time.hours + 1});
+    time.set({ m: 0, h: time.hours() + 1 });
   }
   return moment(time);
 };
@@ -22,10 +22,10 @@ export const pickupSlicer = createSlice({
   },
   reducers: {
     setPickup: (state, action) => {
-      state.pickupDateTime += action.payload;
+      state.pickup = action.payload;
     },
     setDropOff: (state, action) => {
-      state.pickupDateTime += action.payload;
+      state.dropOff = action.payload;
     },
   },
 });

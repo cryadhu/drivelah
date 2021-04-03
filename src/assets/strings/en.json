@@ -11,6 +11,10 @@
     "pickupDate": "Pickup Date",
     "dropOffDate": "Drop-off Date",
     "pickupTime": "Pickup Time",
-    "dropOffTime": "Drop-off Time"
+    "dropOffTime": "Drop-off Time",
+    "slideToSelect": "Slide to select hour"
+  },
+  "action": {
+    "save": "Save & Continue"
   }
 }

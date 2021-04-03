@@ -7,7 +7,6 @@ export default StyleSheet.create({
     alignItems: "center",
     paddingVertical: 20,
     paddingHorizontal: 18,
-    height: "100%",
   },
   date: {
     color: textColor,
@@ -45,4 +44,11 @@ export default StyleSheet.create({
     width: 12,
     borderRadius: 6,
   },
+  slideToSelect:{
+    color: textColor,
+    fontSize: 14,
+    fontFamily: "Museo-300",
+    lineHeight: 14,
+    marginVertical: 10,
+  }
 });
