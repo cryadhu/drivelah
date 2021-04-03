@@ -141,7 +141,7 @@ export default function CalendarView(props) {
           },
           ...previousDatesStyle,
         }}
-      ></Calendar>
+      />
     </View>
   );
 }

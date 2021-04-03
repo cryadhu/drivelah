@@ -32,6 +32,7 @@ export default StyleSheet.create({
   },
   center: {
     alignItems: "center",
+    zIndex: 2,
   },
   vDivider: {
     backgroundColor: textColor,
