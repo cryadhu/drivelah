@@ -36,9 +36,19 @@ export default function DateTimeSelector(props) {
 
   const onChangeDate = (date) => {
     if (selectedTab === TABS.PICKUP) {
-      setSelectedPickup(date);
+      const pickupDate = date.clone();
+      pickupDate.set({
+        h: selectedPickup.hours(),
+        m: selectedPickup.minutes(),
+      });
+      setSelectedPickup(pickupDate);
     } else {
-      setSelectedDropOff(date);
+      const dropOffDate = date.clone();
+      dropOffDate.set({
+        h: selectedDropOff.hours(),
+        m: selectedDropOff.minutes(),
+      });
+      setSelectedDropOff(dropOffDate);
     }
   };
 
@@ -47,6 +57,18 @@ export default function DateTimeSelector(props) {
       return selectedPickup;
     }
     return selectedDropOff;
+  };
+
+  const onTimeChanged = (val) => {
+    if (selectedTab === TABS.PICKUP) {
+      const pickupDate = selectedPickup.clone();
+      pickupDate.set({ h: val.hours(), m: val.minutes() });
+      setSelectedPickup(pickupDate);
+    } else {
+      const dropOffDate = selectedDropOff.clone();
+      dropOffDate.set({ h: val.hours(), m: val.minutes() });
+      setSelectedDropOff(dropOffDate);
+    }
   };
 
   return (
@@ -92,7 +114,10 @@ export default function DateTimeSelector(props) {
           ? string("picker.pickupTime")
           : string("picker.dropOffTime")}
       </Text>
-      <TimeView currentDate={getSelectedDate()}/>
+      <TimeView
+        currentDate={getSelectedDate()}
+        onTimeChanged={onTimeChanged}
+      />
     </View>
   );
 }

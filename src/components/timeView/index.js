@@ -8,15 +8,25 @@ import { string } from "../../assets/strings";
 import styles from "./styles";
 
 export default function TimeView(props) {
-  const { currentDate } = props;
+  const { currentDate, onTimeChanged } = props;
   const [selectedTime, setSelectedTime] = useState(moment().format("h:mm A"));
   const [selectedTimeValue, setSelectedTimeValue] = useState(0);
   const ruler = useRef(null);
 
   useEffect(() => {
-    const now = moment();
-    let hour = now.hour();
-    let minute = now.minute();
+    const val = moveSlideOnTimeChange(moment());
+    onTimeChanged(timeBasedOnVal(val));
+  }, []);
+
+  useEffect(() => {
+    if (currentDate) {
+      console.log(moveSlideOnTimeChange(currentDate));
+    }
+  }, [currentDate]);
+
+  const moveSlideOnTimeChange = (time) => {
+    let hour = time.hour();
+    let minute = time.minute();
     if (minute < 15) {
       minute = 0;
     } else if (minute >= 15 && minute < 45) {
@@ -26,14 +36,20 @@ export default function TimeView(props) {
       minute = 0;
       hour += 1;
     }
-    const val = Math.round(hour * 2)
+    const val = Math.round(hour * 2);
     ruler.current.move(val);
-  }, []);
+    return val;
+  };
 
-  const onChangeValue = (val) => {
-    console.log(val);
+  const timeBasedOnVal = (val) => {
     const startOfDay = moment().clone().startOf("day");
     startOfDay.add(val * 30, "minutes");
+    return startOfDay;
+  };
+
+  const onChangeValue = (val) => {
+    const startOfDay = timeBasedOnVal(val);
+    onTimeChanged(startOfDay);
     setSelectedTime(startOfDay.format("hh:mm A"));
   };
 
