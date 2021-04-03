@@ -201,6 +201,7 @@ class Ruler extends React.Component<Props> {
 
     // Create a listener
     this.scrollListener = this.state.scrollX.addListener(({ value }) => {
+      // this.props.onChangeValue(Math.round(value / 36));
       this.setState({
         value: Math.round(value / this.snapSegment) + minimum,
       });
@@ -213,7 +214,7 @@ class Ruler extends React.Component<Props> {
   }
 
   move(val) {
-    this.scrollViewRef?.current.scrollTo({x: val * this.snapSegment, y: 0})
+    this.scrollViewRef?.current.scrollTo({ x: val * this.snapSegment, y: 0 });
   }
 
   renderRuler() {
