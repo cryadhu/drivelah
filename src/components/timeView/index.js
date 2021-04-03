@@ -19,8 +19,8 @@ export default function TimeView(props) {
   }, []);
 
   useEffect(() => {
-    if (currentDate) {
-      console.log(moveSlideOnTimeChange(currentDate));
+    if (currentDate && selectedTime !== moment(currentDate).format("hh:mm A")) {
+      moveSlideOnTimeChange(currentDate);
     }
   }, [currentDate]);
 
