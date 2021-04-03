@@ -9,6 +9,8 @@
   },
   "picker": {
     "pickupDate": "Pickup Date",
-    "dropOffDate": "Drop-off Date"
+    "dropOffDate": "Drop-off Date",
+    "pickupTime": "Pickup Time",
+    "dropOffTime": "Drop-off Time"
   }
 }

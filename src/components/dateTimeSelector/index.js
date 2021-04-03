@@ -8,6 +8,7 @@ import CalendarView from "../calendarView";
 import { string } from "../../assets/strings";
 
 import styles from "./styles";
+import TimeView from "../timeView";
 
 const { width } = Dimensions.get("screen");
 const TABS = {
@@ -17,28 +18,36 @@ const TABS = {
 
 const finalWidth = width / 2 - 5;
 
-export default function DateTimeHeader(props) {
+export default function DateTimeSelector(props) {
   const { pickup, dropOff } = props;
   const [selectedPickup, setSelectedPickup] = useState(pickup);
   const [selectedDropOff, setSelectedDropOff] = useState(dropOff);
   const [selectedTab, setSelectedTab] = useState(TABS.PICKUP);
+
   const leftDivider = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    if (selectedTab === TABS.DROP_OFF) {
-      Animated.timing(leftDivider, {
-        toValue: finalWidth,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
+  const animateDivider = (to) => {
+    Animated.timing(leftDivider, {
+      toValue: to,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const onChangeDate = (date) => {
+    if (selectedTab === TABS.PICKUP) {
+      setSelectedPickup(date);
     } else {
-      Animated.timing(leftDivider, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
+      setSelectedDropOff(date);
     }
-  }, [selectedTab]);
+  };
+
+  const getSelectedDate = () => {
+    if (selectedTab === TABS.PICKUP) {
+      return selectedPickup;
+    }
+    return selectedDropOff;
+  };
 
   return (
     <View>
@@ -48,13 +57,19 @@ export default function DateTimeHeader(props) {
             dateTime={formatDateTime(selectedPickup)}
             title="Pickup Date & Time"
             selected={selectedTab === TABS.PICKUP}
-            onPress={() => setSelectedTab(TABS.PICKUP)}
+            onPress={() => {
+              animateDivider(0);
+              setSelectedTab(TABS.PICKUP);
+            }}
           />
           <DateTimeHeaderItem
             dateTime={formatDateTime(selectedDropOff)}
             title="Drop-off Date & Time"
             selected={selectedTab === TABS.DROP_OFF}
-            onPress={() => setSelectedTab(TABS.DROP_OFF)}
+            onPress={() => {
+              animateDivider(finalWidth);
+              setSelectedTab(TABS.DROP_OFF);
+            }}
           />
         </View>
         <AnimatedDivider
@@ -64,11 +79,20 @@ export default function DateTimeHeader(props) {
         />
       </View>
       <Text style={styles().pickerTitle}>
-        {selectedTab === TABS.DROP_OFF
+        {selectedTab === TABS.PICKUP
           ? string("picker.pickupDate")
           : string("picker.dropOffDate")}
       </Text>
-      <CalendarView />
+      <CalendarView
+        onChangeDate={onChangeDate}
+        currentDate={getSelectedDate()}
+      />
+      <Text style={styles().pickerTitle}>
+        {selectedTab === TABS.PICKUP
+          ? string("picker.pickupTime")
+          : string("picker.dropOffTime")}
+      </Text>
+      <TimeView currentDate={getSelectedDate()}/>
     </View>
   );
 }

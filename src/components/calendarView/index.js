@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Platform } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import moment from "moment";
@@ -44,7 +44,7 @@ const calenderCustomStyle = {
       color: commonColor,
       fontFamily: "Museo-500",
       fontSize: 18,
-      marginTop: Platform.OS === 'android' ? 4 : 6,
+      marginTop: Platform.OS === "android" ? 4 : 6,
     },
   },
   "stylesheet.calendar.header": {
@@ -80,13 +80,21 @@ const isDatesBeforeToday = (date) => {
 };
 
 export default function CalendarView(props) {
-  const { navigation } = props;
+  const { currentDate, onChangeDate } = props;
   const [selectedDate, setSelectedDate] = useState(
     moment().format("YYYY-MM-DD")
   );
 
+  useEffect(() => {
+    if (currentDate) {
+      setSelectedDate(currentDate.format("YYYY-MM-DD"));
+    }
+  }, [currentDate]);
+
   const setDate = (date) => {
-    setSelectedDate(date.dateString);
+    const { dateString } = date;
+    setSelectedDate(dateString);
+    onChangeDate(moment(dateString));
   };
 
   const getPreviousDateStyle = (item) => {
@@ -108,6 +116,7 @@ export default function CalendarView(props) {
   previousDates.forEach((item) => {
     previousDatesStyle[item] = getPreviousDateStyle(item);
   });
+
   return (
     <View style={styles.container}>
       <Calendar

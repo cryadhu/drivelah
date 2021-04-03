@@ -13,6 +13,7 @@ export default function App() {
     "Museo-300": require("./src/assets/fonts/MuseoSansRounded300.otf"),
     "Museo-500": require("./src/assets/fonts/MuseoSansRounded500.otf"),
     "Museo-900": require("./src/assets/fonts/MuseoSansRounded900.otf"),
+    "Museo-700": require("./src/assets/fonts/MuseoSansRounded700.otf"),
   });
 
   if (!fontsLoaded) {
